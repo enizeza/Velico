@@ -73,11 +73,11 @@ public class RegistrationController implements Initializable {
      */
 	public void userRegistration(ActionEvent event) throws IOException{
 		//conn.mysqlConnect();
-		conn.insertData("s6s","milon","dgh","ghjgh");
+		//conn.insertData("s6s","milon","dgh","ghjgh");
 	}
 	
 	private static void insertData(String word, String meaning, String synonyms, String antonyms){
-	    PreparedStatement pstate;
+	    /*PreparedStatement pstate;
 	    con.mysqlConnect();
         try{
             //using PreparedStatement
@@ -98,6 +98,6 @@ public class RegistrationController implements Initializable {
             }
         catch(SQLException e){
             System.err.println("Query error.");
-            }
-        }
+            }*/
+	}
 }

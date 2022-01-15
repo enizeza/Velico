@@ -28,14 +28,26 @@ public class Boat {
      * This constructor generates a Boat object.
      *
      * @param name the boat name 
-     * @param id the boat id
      * @param length the boat length
      * 
      * @since 1.0
      */
-	public Boat(String name, int id, int length) {
+	public Boat(String name, int length) {
 		this.name = name;
+		this.length = length;
+	}
+	
+	/** 
+     * This constructor generates a Boat object.
+     *
+     * @param name the boat name 
+     * @param length the boat length
+     * 
+     * @since 1.0
+     */
+	public Boat(int id, String name, int length) {
 		this.id = id;
+		this.name = name;
 		this.length = length;
 	}
 	

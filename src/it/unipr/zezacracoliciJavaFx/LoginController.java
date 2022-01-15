@@ -72,7 +72,8 @@ public class LoginController implements Initializable {
      * @since       1.0
      */
 	public void userRegistration(ActionEvent event) throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Registration.fxml"));
+		//FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Registration.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddBoat.fxml"));
 		
 	    Parent parent = fxmlLoader.load();
 	
