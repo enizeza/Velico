@@ -28,7 +28,6 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws IOException {
-	
 		// Read file fxml and draw interface.
 	    Parent root = FXMLLoader.load(getClass().getResource("/it/unipr/zezacracoliciJavaFx/Login.fxml"));
 	

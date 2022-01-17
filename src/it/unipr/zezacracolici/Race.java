@@ -4,8 +4,13 @@
 package it.unipr.zezacracolici;
 
 /**
- * @author enize
- *
+ * Race
+ * 
+ * @author   Eni Zeza 308966
+ * @author   Leonardo Cracolici 306798
+ * 
+ * @version  1.0
+ * @since    1.0
  */
 public class Race {
 

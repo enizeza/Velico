@@ -64,7 +64,7 @@ public class LoginController implements Initializable {
 	}
 
 	/**
-     * Registration giving credentials.
+     * Registration giving data.
      *
      * @param event the event of registration of a person.
      * @throws IOException input output
@@ -72,8 +72,7 @@ public class LoginController implements Initializable {
      * @since       1.0
      */
 	public void userRegistration(ActionEvent event) throws IOException {
-		//FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Registration.fxml"));
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddBoat.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Registration.fxml"));
 		
 	    Parent parent = fxmlLoader.load();
 	

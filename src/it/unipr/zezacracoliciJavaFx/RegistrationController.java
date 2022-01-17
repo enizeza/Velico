@@ -1,17 +1,17 @@
 package it.unipr.zezacracoliciJavaFx;
 
 /**
- * Libraries JavaFX, control Exceptions, reading files
+ * Libraries JavaFX, control Exceptions, reading files, SQL
  * 
  * @version     1.0
  * @since       1.0
  */
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
-
+import java.io.IOException;
+import it.unipr.zezacracolici.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,8 +48,6 @@ public class RegistrationController implements Initializable {
 	@FXML
     private TextField registrationPassword;
 	
-	MysqlConnect con = new MysqlConnect();
-	
 	
 	/** {@inheritDoc} **/
 	@Override
@@ -67,37 +65,32 @@ public class RegistrationController implements Initializable {
      * Registration giving credentials.
      *
      * @param event the event of registration of a person.
-     * @throws IOException input output
+	 * @throws SQLException 
+	 * @throws IOException 
      *
      * @since       1.0
      */
-	public void userRegistration(ActionEvent event) throws IOException{
-		//conn.mysqlConnect();
-		//conn.insertData("s6s","milon","dgh","ghjgh");
-	}
-	
-	private static void insertData(String word, String meaning, String synonyms, String antonyms){
-	    /*PreparedStatement pstate;
-	    con.mysqlConnect();
-        try{
-            //using PreparedStatement
-            pstate = con.prepareStatement("insert into person(name, surname, address, fiscalcode, usename, password)"+
-                                            "values(?,?,?,?)");
-            pstate.setString(1, word);
-            pstate.setString(2, meaning);
-            pstate.setString(3, synonyms);
-            pstate.setString(4, antonyms);
-            int value = pstate.executeUpdate();
-
-            //using Statement
-            //state = con.createStatement();
-            //int value = state.executeUpdate("insert into dictionary(word, meaning, synonyms, antonyms)"+
-            //                      "values('"+word+"', '"+meaning+"', '"+synonyms+"', '"+antonyms+"')");
-
-            System.out.println("Query OK, 1 row insertedted.");
-            }
-        catch(SQLException e){
-            System.err.println("Query error.");
-            }*/
+	public void userRegistration(ActionEvent event) throws SQLException, IOException{
+		String name  = registrationName.getText().trim();
+		String surname  = registrationSurname.getText().trim();
+		String address  = registrationAddress.getText().trim();
+		String fiscal  = registrationFiscalcode.getText().trim();
+		String user  = registrationUsername.getText().trim();
+		String password  = registrationPassword.getText().trim();
+		
+		Member member = new Member(name, surname, address, fiscal, user, password);
+		member.registration(member,"Member");
+		
+		FXMLLoader fxmlLoaderLogin = new FXMLLoader(getClass().getResource("Login.fxml"));
+		
+	    Parent parentLogin= fxmlLoaderLogin.load();
+		
+		closeStage(event);
+		Scene sceneLogin = new Scene(parentLogin, 300, 200);
+	    Stage stageLogin = new Stage();
+	    stageLogin.setTitle("Login");
+	    stageLogin.initModality(Modality.APPLICATION_MODAL);
+	    stageLogin.setScene(sceneLogin);
+	    stageLogin.show();
 	}
 }
