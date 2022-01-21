@@ -8,6 +8,7 @@ package it.unipr.zezacracoliciJavaFx;
  */
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import it.unipr.zezacracolici.*;
 import javafx.event.ActionEvent;
@@ -34,31 +35,45 @@ public class AddBoatDialogController {
   private TextField addBoatName;
   @FXML
   private TextField addBoatLength;
+  
+  private int userId;
 
   /**
    * Adds a new boat.
    *
    * @param event  the event that creates the new boat.
    * @throws IOException input output
+ * @throws SQLException query error
    *
    * @since    1.0
    */
   @FXML
-  public void addBoat(final ActionEvent event) throws IOException
+  public void addBoat(final ActionEvent event) throws IOException, SQLException
   {
     String name = addBoatName.getText().trim();
     Integer length  = Integer.valueOf(addBoatLength.getText().trim());
 
     Boat boat = new Boat(name,length);
-
+    
     Member mem = new Member();
-    mem.addBoat(boat);
+    mem.addBoat(boat,userId);
     closeStage(event);
   }
   
   private void closeStage(final ActionEvent event) {
-	    Node  source = (Node) event.getSource();
-	    Stage stage  = (Stage) source.getScene().getWindow();
-	    stage.close();
+    Node  source = (Node) event.getSource();
+    Stage stage  = (Stage) source.getScene().getWindow();
+    stage.close();
+  }
+  
+  /**
+ 	 * Handles the communication between controllers of the Idperson.
+ 	 *
+ 	 * @param userId  userId the id of the person.
+ 	 *
+ 	 * @since       1.0
+ 	 */
+  public void setUser(int userId){
+      this.userId = userId;
   }
 }

@@ -14,6 +14,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import it.unipr.zezacracoliciJavaFx.MysqlConnect;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
+
 /**
  * Member is a subclass of person. It has some privileges more than Person.
  * 
@@ -53,13 +58,63 @@ public class Member extends Person {
      * Add boat ownership
      * 
      * @param boat boat of the member to add
+     * @param idowner id of the member
      * 
+	 * @throws SQLException query errors
      * @throws IOException input output
      * 
      * @since 1.0
      */
-	public void addBoat(Boat boat) {
-		 
+	public void addBoat(Boat boat, int idowner) throws SQLException {
+		PreparedStatement pstate;		
+		MysqlConnect pool = new MysqlConnect();
+		Connection conn = pool.getConnection();
+		try{
+            pstate = conn.prepareStatement("insert into boat(name, length, owner)"+
+                                            "values(?,?,?)");
+            pstate.setString(1, boat.getName());
+            pstate.setString(2, Integer.toString(boat.getLength()));
+            pstate.setString(3, Integer.toString(idowner));
+            pstate.executeUpdate();
+
+            Alert alert = new Alert(AlertType.INFORMATION,"Row inserted correctly",ButtonType.OK);
+			alert.showAndWait();
+            }
+        catch(SQLException e){
+            Alert alert = new Alert(AlertType.WARNING,"Error!!",ButtonType.OK);
+			alert.showAndWait();
+        }	
+		pool.releaseConnection(conn);
+	}
+	
+	/**
+     * Remove boat ownership
+     * 
+     * @param idboat id of the boat to remove
+     * 
+	 * @throws SQLException query errors
+     * @throws IOException input output
+     * 
+     * @since 1.0
+     */
+	public void removeBoat(int idboat) throws SQLException {
+		PreparedStatement pstate;		
+		MysqlConnect pool = new MysqlConnect();
+		Connection conn = pool.getConnection();
+		
+		try{
+            pstate = conn.prepareStatement("delete from boat where idboat = ?");
+            pstate.setString(1, Integer.toString(idboat));
+            int value = pstate.executeUpdate();
+
+            Alert alert = new Alert(AlertType.INFORMATION,"Row deleted correctly",ButtonType.OK);
+			alert.showAndWait();
+            }
+        catch(SQLException e){
+        	Alert alert = new Alert(AlertType.WARNING,"Error!!",ButtonType.OK);
+			alert.showAndWait();
+            }
+		pool.releaseConnection(conn);
 	}
 	
 	/**

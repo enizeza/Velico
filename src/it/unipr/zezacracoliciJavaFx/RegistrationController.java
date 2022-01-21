@@ -65,8 +65,8 @@ public class RegistrationController implements Initializable {
      * Registration giving credentials.
      *
      * @param event the event of registration of a person.
-	 * @throws SQLException 
-	 * @throws IOException 
+	 * @throws SQLException query error
+	 * @throws IOException Input output
      *
      * @since       1.0
      */

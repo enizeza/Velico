@@ -52,6 +52,10 @@ public class MemberMenuController implements Initializable {
 	
 	private ObservableList<Notification> tvObservableList = FXCollections.observableArrayList();
 	
+	private ObservableList<Boat> appMainObservableList;
+	
+	private int userId;
+	
 	
 	/**
 	 * Handles the open dialog event log out.
@@ -89,7 +93,34 @@ public class MemberMenuController implements Initializable {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddBoatDialog.fxml"));
 		
 	    Parent parent = fxmlLoader.load();
+	    
+	    AddBoatDialogController control = fxmlLoader.<AddBoatDialogController>getController();
+	    control.setUser(userId);
 	
+	    Scene scene = new Scene(parent, 300, 200);
+	    Stage stage = new Stage();
+	    stage.initModality(Modality.APPLICATION_MODAL);
+	    stage.setScene(scene);
+	    stage.showAndWait();
+	}
+	
+	/**
+	 * Handles the open dialog event for removing a boat.
+     *
+     * @param e  the event.
+	 * @throws IOException input output
+     *
+     * @since       1.0
+     */
+	@FXML
+	public void onOpenDialogRemoveBoat(final ActionEvent e) throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("RemoveBoatDialog.fxml"));
+		
+	    Parent parent = fxmlLoader.load();
+	    
+	    SearchProductDialogController dialogController = fxmlLoader.<SearchProductDialogController> getController();
+		dialogController.setAppMainObservableList(tvObservableList);
+	    
 	    Scene scene = new Scene(parent, 300, 200);
 	    Stage stage = new Stage();
 	    stage.initModality(Modality.APPLICATION_MODAL);
@@ -166,5 +197,27 @@ public class MemberMenuController implements Initializable {
 	    Node  source = (Node) event.getSource();
 	    Stage stage  = (Stage) source.getScene().getWindow();
 	    stage.close();
+	}
+    
+    /**
+   	 * Handles the communication between controllers of the Idperson.
+   	 *
+   	 * @param userId  userId the id of the person.
+   	 *
+   	 * @since       1.0
+   	 */
+    public void setUser(int userId){
+        this.userId = userId;
+    }
+    
+    /**
+     * Sets the boats' observable list.
+     *
+     * @param ol  the observable list.
+     *
+     * @since       1.0
+     */
+    public void setAppMainObservableList(final ObservableList<Boat> ol) {
+    	this.appMainObservableList = ol;
 	}
 }

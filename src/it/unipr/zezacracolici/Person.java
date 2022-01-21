@@ -142,7 +142,7 @@ public class Person {
      * Registration into the database of a person
      * 
      * @param role the role of the person 
-	 * @throws SQLException  When the query gives an error
+	 * @throws SQLException query error
      * 
      * @since 1.0
      */
@@ -151,7 +151,6 @@ public class Person {
 		MysqlConnect pool = new MysqlConnect();
 		Connection conn = pool.getConnection();
 		try{
-            //using PreparedStatement
             pstate = conn.prepareStatement("insert into person(name, surname, address, fiscalcode, username, password, role)"+
                                             "values(?,?,?,?,?,?,?)");
             pstate.setString(1, member.getName());
@@ -163,17 +162,10 @@ public class Person {
             pstate.setString(7, role);
             pstate.executeUpdate();
 
-            //using Statement
-            //state = con.createStatement();
-            //int value = state.executeUpdate("insert into dictionary(word, meaning, synonyms, antonyms)"+
-            //                      "values('"+word+"', '"+meaning+"', '"+synonyms+"', '"+antonyms+"')");
-
-            //System.out.println("Query OK, 1 row insertedted.");
             Alert alert = new Alert(AlertType.INFORMATION,"Row inserted correctly",ButtonType.OK);
 			alert.showAndWait();
             }
         catch(SQLException e){
-            //System.err.println("Query error.");
             Alert alert = new Alert(AlertType.WARNING,"Error!!",ButtonType.OK);
 			alert.showAndWait();
         }	
