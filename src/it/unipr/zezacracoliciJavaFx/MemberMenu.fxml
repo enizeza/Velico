@@ -16,6 +16,7 @@
             <Button fx:id="pay" mnemonicParsing="false" onAction="#onOpenDialogPayments" text="Pay" />
             <Button fx:id="removeBoat" mnemonicParsing="false" onAction="#onOpenDialogRemoveBoat" text="Remove boat" />
             <Button fx:id="registrationBoatRace" mnemonicParsing="false" onAction="#onOpenDialogRegistrationRaceBoat" text="Registration boat race" />
+            <Button fx:id="showNotification" mnemonicParsing="false" onAction="#onShowNotification" text="Show Notification" />
             <TableView fx:id="tvData" prefHeight="300.0" prefWidth="400.0">
               <columns>
                 <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />

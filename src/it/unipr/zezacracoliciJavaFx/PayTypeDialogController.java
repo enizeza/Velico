@@ -9,7 +9,10 @@ package it.unipr.zezacracoliciJavaFx;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 import it.unipr.zezacracolici.*;
@@ -29,8 +32,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 /**
- * The class {@code RemoveBoatDialogController} supports
- * the remove of a boat.
+ * The class {@code PayTypeDialogController} supports
+ * the type of a payment to perform.
  * 
  * 
  * @author   Eni Zeza 308966
@@ -41,7 +44,7 @@ import javafx.stage.Stage;
  * @since    1.0
  */
 
-public class RemoveBoatDialogController implements Initializable {
+public class PayTypeDialogController implements Initializable {
   @FXML
   private TableView<Boat> tvData;
   @FXML
@@ -53,9 +56,10 @@ public class RemoveBoatDialogController implements Initializable {
 	
   private ObservableList<Boat> tvObservableList = FXCollections.observableArrayList();
   
+  private int userId;
 
   /**
-   * Removes a boat.
+   * Open the dialog  a boat.
    *
    * @param event the event that Removes the boat.
    * 
@@ -65,7 +69,7 @@ public class RemoveBoatDialogController implements Initializable {
    * @since    1.0
    */
   @FXML
-  public void deleteBoat(final ActionEvent event) throws IOException, SQLException
+  public void payBoatStorage(final ActionEvent event) throws IOException, SQLException
   { 
     if (tvData.getSelectionModel().getSelectedItem() != null) {
         Boat selectedBoat = tvData.getSelectionModel().getSelectedItem();
@@ -80,6 +84,44 @@ public class RemoveBoatDialogController implements Initializable {
 		alert.showAndWait();
 	}
     closeStage(event);
+  }
+  
+  /**
+   * Show boats.
+   *
+   * @param event the event that Removes the boat.
+   * 
+   * @throws IOException input output
+ * @throws SQLException query error
+   *
+   * @since    1.0
+   */
+  @FXML
+  public void payOrganization(final ActionEvent event) throws IOException, SQLException
+  { 
+	  MysqlConnect pool = new MysqlConnect();
+	  Connection conn = pool.getConnection();
+		
+	  Statement state = null;
+	  ResultSet result;
+	  String Name = "";
+      int Length = 0;
+	  int IdBoat = 0;
+	     
+      
+      try{
+    	  state = conn.createStatement();
+          result = state.executeQuery("SELECT * FROM organization_sum as os WHERE DATE_SUB(CURRENT_DATE(), INTERVAL 1 YEAR) > os.date && person="+userId+"");
+          pool.releaseConnection(conn);
+          }
+      catch(SQLException e){
+          Alert alert = new Alert(AlertType.WARNING,"Query error!!!",ButtonType.OK);
+		  alert.showAndWait();
+          }
+      catch(NullPointerException e){
+          Alert alert = new Alert(AlertType.INFORMATION,"La quota non è scaduta ancora!!",ButtonType.OK);
+		  alert.showAndWait();
+          }
   }
   
   /**
@@ -131,5 +173,16 @@ public class RemoveBoatDialogController implements Initializable {
 	colLengthBoat.setCellValueFactory(new PropertyValueFactory<Boat, String>("length"));
 	
 	tvData.setItems(tvObservableList); 	
+  }
+  
+  /**
+	 * Handles the communication between controllers of the Idperson.
+	 *
+	 * @param userId  userId the id of the person.
+	 *
+	 * @since       1.0
+	 */
+  public void setUser(int userId){
+    this.userId = userId;
   }
 }

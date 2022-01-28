@@ -83,5 +83,4 @@ public class Boat {
 	public int getLength() {
 		return this.length;
 	}
-
 }

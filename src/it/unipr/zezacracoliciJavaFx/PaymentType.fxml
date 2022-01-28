@@ -7,13 +7,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unipr.zezacracoliciJavaFx.RemoveBoatDialogController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unipr.zezacracoliciJavaFx.PayTypeDialogController">
    <children>
       <VBox alignment="CENTER" layoutX="91.0" layoutY="85.0" spacing="10.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Delete boat" />
-            <Button fx:id="deleteBoat" mnemonicParsing="false" onAction="#deleteBoat" text="Delete boat" />
-            <Button fx:id="showBoat" mnemonicParsing="false" onAction="#showBoat" text="Show boats" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pay" />
+            <Button fx:id="payOrganization" mnemonicParsing="false" onAction="#payOrganization" text="Pay Organization Sum" />
+            <Button fx:id="payBoatStorage" mnemonicParsing="false" onAction="#payBoatStorage" text="Pay Boat Storage" />
+            <Button fx:id="showBoat" mnemonicParsing="false" onAction="#showBoat" text="Show Boats" />
             <TableView fx:id="tvData" prefHeight="300.0" prefWidth="400.0">
               <columns>
                 <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />

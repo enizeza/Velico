@@ -10,6 +10,10 @@ package it.unipr.zezacracoliciJavaFx;
 import java.io.IOException;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 import it.unipr.zezacracolici.*;
@@ -46,13 +50,13 @@ public class MemberMenuController implements Initializable {
 	@FXML
 	private TableView<Notification> tvData;
 	@FXML
-	private TableColumn<String, String> colId;
+	private TableColumn<Notification, String> colId;
 	@FXML
-	private TableColumn<String, String> colType;
+	private TableColumn<Notification, String> colType;
 	
 	private ObservableList<Notification> tvObservableList = FXCollections.observableArrayList();
 	
-	private ObservableList<Boat> appMainObservableList;
+	private ObservableList<Boat> appMainObservableList = FXCollections.observableArrayList();
 	
 	private int userId;
 	
@@ -99,6 +103,7 @@ public class MemberMenuController implements Initializable {
 	
 	    Scene scene = new Scene(parent, 300, 200);
 	    Stage stage = new Stage();
+	    stage.setTitle("Add Boat");
 	    stage.initModality(Modality.APPLICATION_MODAL);
 	    stage.setScene(scene);
 	    stage.showAndWait();
@@ -109,20 +114,43 @@ public class MemberMenuController implements Initializable {
      *
      * @param e  the event.
 	 * @throws IOException input output
+	 * @throws SQLException query error
      *
      * @since       1.0
      */
 	@FXML
-	public void onOpenDialogRemoveBoat(final ActionEvent e) throws IOException {
+	public void onOpenDialogRemoveBoat(final ActionEvent e) throws IOException, SQLException {
+		MysqlConnect pool = new MysqlConnect();
+		Connection conn = pool.getConnection();
+		
+		Statement state = null;
+	    ResultSet result;
+	    String Name = "";
+	    int Length = 0;
+	    int IdBoat = 0;
+		
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("RemoveBoatDialog.fxml"));
 		
 	    Parent parent = fxmlLoader.load();
 	    
-	    SearchProductDialogController dialogController = fxmlLoader.<SearchProductDialogController> getController();
-		dialogController.setAppMainObservableList(tvObservableList);
+	    RemoveBoatDialogController dialogController = fxmlLoader.<RemoveBoatDialogController> getController();
+			
+        state = conn.createStatement();
+        result = state.executeQuery("select * from boat where owner="+userId+"");
+        while(result.next()){
+            Name = result.getString("name");
+            Length = result.getInt("length");
+            IdBoat = result.getInt("idboat");
+            Boat boat = new Boat(IdBoat, Name, Length);
+            appMainObservableList.add(boat);
+        	}
+        pool.releaseConnection(conn);
+        
+		dialogController.setAppMainObservableList(appMainObservableList);
 	    
-	    Scene scene = new Scene(parent, 300, 200);
+	    Scene scene = new Scene(parent, 400, 400);
 	    Stage stage = new Stage();
+	    stage.setTitle("Remove Boat");
 	    stage.initModality(Modality.APPLICATION_MODAL);
 	    stage.setScene(scene);
 	    stage.showAndWait();
@@ -144,6 +172,7 @@ public class MemberMenuController implements Initializable {
 	
 	    Scene scene = new Scene(parent, 300, 200);
 	    Stage stage = new Stage();
+	    stage.setTitle("Registration Boat");
 	    stage.initModality(Modality.APPLICATION_MODAL);
 	    stage.setScene(scene);
 	    stage.showAndWait();
@@ -154,11 +183,48 @@ public class MemberMenuController implements Initializable {
    	 *
    	 * @param e  the event.
    	 * @throws IOException input output
+	 * @throws SQLException query error
    	 *
    	 * @since       1.0
    	 */
 	@FXML
-	public void onOpenDialogPayments(final ActionEvent e) throws IOException{
+	public void onOpenDialogPayments(final ActionEvent e) throws IOException, SQLException{
+		MysqlConnect pool = new MysqlConnect();
+		Connection conn = pool.getConnection();
+		
+		Statement state = null;
+	    ResultSet result;
+	    String Name = "";
+	    int Length = 0;
+	    int IdBoat = 0;
+		
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PaymentType.fxml"));
+		
+	    Parent parent = fxmlLoader.load();
+	    
+	    PayTypeDialogController dialogController = fxmlLoader.<PayTypeDialogController> getController();
+			
+        state = conn.createStatement();
+        result = state.executeQuery("select * from boat where owner="+userId+"");
+        while(result.next()){
+            Name = result.getString("name");
+            Length = result.getInt("length");
+            IdBoat = result.getInt("idboat");
+            Boat boat = new Boat(IdBoat, Name, Length);
+            appMainObservableList.add(boat);
+        	}
+        pool.releaseConnection(conn);
+        
+		dialogController.setAppMainObservableList(appMainObservableList);
+		dialogController.setUser(userId);
+	
+	    Scene scene = new Scene(parent, 400, 400);
+	    Stage stage = new Stage();
+	    stage.setTitle("Payment selection");
+	    stage.initModality(Modality.APPLICATION_MODAL);
+	    stage.setScene(scene);
+	    stage.showAndWait();
+		
 		/*if (tvData.getSelectionModel().getSelectedItem() != null) {
 	        Product selectedProduct = tvData.getSelectionModel().getSelectedItem();
 	        int id = selectedProduct.getId();
@@ -182,14 +248,49 @@ public class MemberMenuController implements Initializable {
 			alert.showAndWait();
 		}*/
 	}
+	
+	/**
+   	 * Handles event of showing notification.
+   	 *
+   	 * @param e  the event.
+   	 * @throws IOException input output
+	 * @throws SQLException query error
+   	 *
+   	 * @since       1.0
+   	 */
+	@FXML
+	public void onShowNotification(final ActionEvent e) throws IOException, SQLException{
+		tvData.getItems().clear();
+		
+		MysqlConnect pool = new MysqlConnect();
+		Connection conn = pool.getConnection();
+		
+		Statement state = null;
+	    ResultSet result;
+	    String Sum_type = "";
+	    int Read = 0;
+	    int IdNotification = 0;
+			
+        state = conn.createStatement();
+        result = state.executeQuery("select * from notification where person="+userId+"");
+        while(result.next()){
+        	Sum_type = result.getString("sum_type");
+        	Read = result.getInt("message_read");
+        	IdNotification = result.getInt("idnotification");
+            Notification notification = new Notification(IdNotification, userId, Sum_type, Read);
+            if(notification.getRead()==0) {
+            	tvObservableList.add(notification);
+            }  	
+        	}
+        pool.releaseConnection(conn);
+  
+	}
 
 	/** {@inheritDoc} **/
     @Override
   	public void initialize(final URL location, final ResourceBundle resources) {
-		colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-		//colNameProduct.setCellValueFactory(new PropertyValueFactory<>("name_product"));
-		//colNameFactory.setCellValueFactory(new PropertyValueFactory<>("name_factory"));
-		//colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+		colId.setCellValueFactory(new PropertyValueFactory<Notification, String>("idnotification"));
+		colType.setCellValueFactory(new PropertyValueFactory<Notification, String>("type"));
 		tvData.setItems(tvObservableList);
   	}
     

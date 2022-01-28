@@ -1,10 +1,5 @@
 package it.unipr.zezacracoliciJavaFx;
 
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
-import java.io.EOFException;
-import java.io.FileInputStream;
-
 /**
  * Libraries JavaFX, control Exceptions, reading files
  * 
@@ -15,11 +10,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -78,20 +71,12 @@ public class LoginController implements Initializable {
 		Statement state = null;
 	    ResultSet result;
 	    String Role = "";
-	    String Name = "";
-        String Surname = "";
-        String Address = "";
-        String FiscalCode = "";
         int IdPerson = 0;
 			
 		try{
             state = conn.createStatement();
             result = state.executeQuery("select * from person where username='"+Username+"' && password='"+Password+"'");
             while(result.next()){
-                Name = result.getString("name");
-                Surname = result.getString("surname");
-                Address = result.getString("address");
-                FiscalCode = result.getString("fiscalcode");
                 Role = result.getString("role");
                 IdPerson = result.getInt("idperson");
             	}
