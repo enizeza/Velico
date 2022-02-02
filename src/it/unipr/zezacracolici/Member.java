@@ -141,12 +141,37 @@ public class Member extends Person {
 	/**
      * Enroll a boat to a race
      * 
-     * @param boat the boat to enroll to the race
+     * @param idboat the boat id
+     * @param idrace the race id
+     * @param idPayment the payment id
+     * @param price the race price 
      * 
+	 * @throws SQLException query errors
      * 
      * @since 1.0
      */
-	public void enrollBoatRace(Boat boat, Race race) {
-		
+	public void enrollBoatRace(int idboat, int idrace, int idPayment,int price) throws SQLException {
+		PreparedStatement pstate;		
+		MysqlConnect pool = new MysqlConnect();
+		Connection conn = pool.getConnection();
+		try{
+            pstate = conn.prepareStatement("insert into participant(boat, race, payment, price)"+
+                                            "values(?,?,?,?)");
+            
+            pstate.setString(1, Integer.toString(idboat));
+            pstate.setString(2, Integer.toString(idrace));
+            pstate.setString(3, Integer.toString(idPayment));
+            pstate.setString(4, Integer.toString(price));
+            
+            pstate.executeUpdate();
+
+            Alert alert = new Alert(AlertType.INFORMATION,"Row inserted correctly",ButtonType.OK);
+			alert.showAndWait();
+            }
+        catch(SQLException e){
+            Alert alert = new Alert(AlertType.WARNING,"Error!!",ButtonType.OK);
+			alert.showAndWait();
+        }	
+		pool.releaseConnection(conn);
 	}
 }

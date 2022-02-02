@@ -71,7 +71,7 @@ public class PayTypeDialogController implements Initializable {
   @FXML
   public void payBoatStorage(final ActionEvent event) throws IOException, SQLException
   { 
-    if (tvData.getSelectionModel().getSelectedItem() != null) {
+    /*if (tvData.getSelectionModel().getSelectedItem() != null) {
         Boat selectedBoat = tvData.getSelectionModel().getSelectedItem();
         int id = selectedBoat.getId();
 		
@@ -83,7 +83,7 @@ public class PayTypeDialogController implements Initializable {
 		Alert alert = new Alert(AlertType.WARNING,"Nothing selected",ButtonType.OK);
 		alert.showAndWait();
 	}
-    closeStage(event);
+    closeStage(event);*/
   }
   
   /**
@@ -99,7 +99,7 @@ public class PayTypeDialogController implements Initializable {
   @FXML
   public void payOrganization(final ActionEvent event) throws IOException, SQLException
   { 
-	  MysqlConnect pool = new MysqlConnect();
+	  /*MysqlConnect pool = new MysqlConnect();
 	  Connection conn = pool.getConnection();
 		
 	  Statement state = null;
@@ -121,7 +121,7 @@ public class PayTypeDialogController implements Initializable {
       catch(NullPointerException e){
           Alert alert = new Alert(AlertType.INFORMATION,"La quota non è scaduta ancora!!",ButtonType.OK);
 		  alert.showAndWait();
-          }
+          }*/
   }
   
   /**

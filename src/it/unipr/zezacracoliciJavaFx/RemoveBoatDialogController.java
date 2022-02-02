@@ -85,7 +85,7 @@ public class RemoveBoatDialogController implements Initializable {
   /**
    * Show boats.
    *
-   * @param event the event that Removes the boat.
+   * @param event the event that Shows the boats.
    * 
    * @throws IOException input output
    * @throws SQLException query error
@@ -94,7 +94,7 @@ public class RemoveBoatDialogController implements Initializable {
    */
   @FXML
   public void showBoat(final ActionEvent event) throws IOException, SQLException
-  { 
+  { 	  
 	colId.setCellValueFactory(new PropertyValueFactory<Boat, String>("id"));
 	colNameBoat.setCellValueFactory(new PropertyValueFactory<Boat, String>("name"));
 	colLengthBoat.setCellValueFactory(new PropertyValueFactory<Boat, String>("length"));

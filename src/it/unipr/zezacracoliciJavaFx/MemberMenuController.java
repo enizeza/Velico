@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -57,6 +58,8 @@ public class MemberMenuController implements Initializable {
 	private ObservableList<Notification> tvObservableList = FXCollections.observableArrayList();
 	
 	private ObservableList<Boat> appMainObservableList = FXCollections.observableArrayList();
+	
+	private ObservableList<Race> appMainObservableListRace = FXCollections.observableArrayList();
 	
 	private int userId;
 	
@@ -120,6 +123,7 @@ public class MemberMenuController implements Initializable {
      */
 	@FXML
 	public void onOpenDialogRemoveBoat(final ActionEvent e) throws IOException, SQLException {
+		appMainObservableList.clear();
 		MysqlConnect pool = new MysqlConnect();
 		Connection conn = pool.getConnection();
 		
@@ -161,16 +165,58 @@ public class MemberMenuController implements Initializable {
    	 *
    	 * @param e  the event.
    	 * @throws IOException input output
+	 * @throws SQLException query error
    	 *
    	 * @since       1.0
    	 */
 	@FXML
-	public void onOpenDialogRegistrationRaceBoat(final ActionEvent e) throws IOException{
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("RegistrationBoatRaceDialog.fxml"));
+	public void onOpenDialogRegistrationRaceBoat(final ActionEvent e) throws IOException, SQLException{
+	    appMainObservableList.clear();
+	    appMainObservableListRace.clear();
+		MysqlConnect pool = new MysqlConnect();
+		Connection conn = pool.getConnection();
+		
+		Statement state = null;
+	    ResultSet result;
+	    String Name = "";
+	    int Length = 0;
+	    int IdBoat = 0;
+	    
+	    Date Date;
+	    int IdRace = 0;
+	    String Place = "";
+		
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("RegistrationBoatRaceDialog.fxml"));
 		
 	    Parent parent = fxmlLoader.load();
-	
-	    Scene scene = new Scene(parent, 300, 200);
+	    
+	    RegistrationBoatRaceDialogController dialogController = fxmlLoader.<RegistrationBoatRaceDialogController> getController();
+			
+        state = conn.createStatement();
+        result = state.executeQuery("select * from boat where owner="+userId+"");
+        while(result.next()){
+            Name = result.getString("name");
+            Length = result.getInt("length");
+            IdBoat = result.getInt("idboat");
+            Boat boat = new Boat(IdBoat, Name, Length);
+            appMainObservableList.add(boat);
+        	}
+        
+        result = state.executeQuery("select * from race where date >= current_date()");
+        while(result.next()){
+            Name = result.getString("name");
+            Place = result.getString("place");
+            Date = result.getDate("date");
+            IdRace = result.getInt("idrace");
+            Race race = new Race(IdRace, Name, Place, Date);
+            appMainObservableListRace.add(race);
+        	}
+        pool.releaseConnection(conn);
+        
+        
+		dialogController.setAppMainObservableList(appMainObservableList,appMainObservableListRace);
+	    
+	    Scene scene = new Scene(parent, 500, 500);
 	    Stage stage = new Stage();
 	    stage.setTitle("Registration Boat");
 	    stage.initModality(Modality.APPLICATION_MODAL);
@@ -189,6 +235,7 @@ public class MemberMenuController implements Initializable {
    	 */
 	@FXML
 	public void onOpenDialogPayments(final ActionEvent e) throws IOException, SQLException{
+		appMainObservableList.clear();
 		MysqlConnect pool = new MysqlConnect();
 		Connection conn = pool.getConnection();
 		
