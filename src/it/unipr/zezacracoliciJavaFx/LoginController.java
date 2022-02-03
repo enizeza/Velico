@@ -108,14 +108,14 @@ public class LoginController implements Initializable {
 				    break;
 					
 				case "Staff":
-					FXMLLoader fxmlLoaderEmployee = new FXMLLoader(getClass().getResource("EmployeeMenu.fxml"));
+					FXMLLoader fxmlLoaderEmployee = new FXMLLoader(getClass().getResource("StaffMenu.fxml"));
 					
 				    Parent parentEmployee = fxmlLoaderEmployee.load();
 				
 				    closeStage(event);
-				    Scene sceneEmployee = new Scene(parentEmployee, 800, 800);
+				    Scene sceneEmployee = new Scene(parentEmployee, 400, 400);
 				    Stage stageEmployee = new Stage();
-				    stageEmployee.setTitle("Employee Menu");
+				    stageEmployee.setTitle("Staff Menu");
 				    stageEmployee.initModality(Modality.APPLICATION_MODAL);
 				    stageEmployee.setScene(sceneEmployee);
 				    stageEmployee.show();

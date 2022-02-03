@@ -1,7 +1,5 @@
 package it.unipr.zezacracolici;
 
-import java.util.Date;
-
 /**
  * Notification is in charge of the notification.
  * Each notification has a type, id, bool read  and idperson.

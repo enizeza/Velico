@@ -16,7 +16,6 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 
 import it.unipr.zezacracolici.*;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -111,7 +110,7 @@ public class PayTypeDialogController implements Initializable {
    * @param event the event that Removes the boat.
    * 
    * @throws IOException input output
- * @throws SQLException query error
+   * @throws SQLException query error
    *
    * @since    1.0
    */

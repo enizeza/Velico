@@ -8,13 +8,8 @@ package it.unipr.zezacracolici;
  */
 
 import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.SimpleDateFormat;
 
 import it.unipr.zezacracoliciJavaFx.MysqlConnect;
 import javafx.scene.control.Alert;
@@ -41,7 +36,7 @@ public class Member extends Person {
 	}
 	
 	/** 
-     * This constructor generates an Member object.
+     * This constructor generates a Member object.
      *
      * @param username the person username 
      * @param password the person password
@@ -63,7 +58,6 @@ public class Member extends Person {
      * @param idowner id of the member
      * 
 	 * @throws SQLException query errors
-     * @throws IOException input output
      * 
      * @since 1.0
      */
@@ -95,7 +89,6 @@ public class Member extends Person {
      * @param idboat id of the boat to remove
      * 
 	 * @throws SQLException query errors
-     * @throws IOException input output
      * 
      * @since 1.0
      */
@@ -107,7 +100,6 @@ public class Member extends Person {
 		try{
             pstate = conn.prepareStatement("delete from boat where idboat = ?");
             pstate.setString(1, Integer.toString(idboat));
-            int value = pstate.executeUpdate();
 
             Alert alert = new Alert(AlertType.INFORMATION,"Row deleted correctly",ButtonType.OK);
 			alert.showAndWait();
@@ -170,9 +162,6 @@ public class Member extends Person {
 		PreparedStatement pstate;		
 		MysqlConnect pool = new MysqlConnect();
 		Connection conn = pool.getConnection();
-		/*Date data = Date.valueOf(java.time.LocalDate.now());
-		SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");  
-	    strDate = formatter.format(date);  */
         java.util.Date utilDate = new java.util.Date();
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 		try{
@@ -181,8 +170,6 @@ public class Member extends Person {
             
             pstate.setString(1, Integer.toString(idboat));
             pstate.setString(2, Integer.toString(idPayment));
-            //pstate.setString(3, Date.(java.sql.Date.valueOf(java.time.LocalDate.now())));
-            //pstate.setDate(3, new java.sql.Date(date.getTime()));
             pstate.setDate(3, sqlDate);
             pstate.setString(4, Integer.toString(price));
             

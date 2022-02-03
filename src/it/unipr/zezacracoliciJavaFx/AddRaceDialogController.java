@@ -8,18 +8,21 @@ package it.unipr.zezacracoliciJavaFx;
  */
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import it.unipr.zezacracolici.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
- * The class {@code AddBoatDialogController} supports
- * the adding of the data of a new boat.
+ * The class {@code AddRaceDialogController} supports
+ * the adding of the data of a new race.
  * 
  * 
  * @author   Eni Zeza 308966
@@ -30,16 +33,17 @@ import javafx.stage.Stage;
  * @since    1.0
  */
 
-public class AddBoatDialogController {
+public class AddRaceDialogController {
   @FXML
-  private TextField addBoatName;
+  private TextField addRaceName;
   @FXML
-  private TextField addBoatLength;
-  
-  private int userId;
+  private TextField addRacePlace;
+  @FXML
+  private DatePicker addRaceDate;
+ 
 
   /**
-   * Adds a new boat.
+   * Adds a new race.
    *
    * @param event  the event that creates the new boat.
    * @throws IOException input output
@@ -48,15 +52,19 @@ public class AddBoatDialogController {
    * @since    1.0
    */
   @FXML
-  public void addBoat(final ActionEvent event) throws IOException, SQLException
+  public void addRace(final ActionEvent event) throws IOException, SQLException
   {
-    String name = addBoatName.getText().trim();
-    Integer length  = Integer.valueOf(addBoatLength.getText().trim());
-
-    Boat boat = new Boat(name,length);
+    String name = addRaceName.getText().trim();
+    String place  = addRacePlace.getText().trim();
+    LocalDate localdate = addRaceDate.getValue(); 
     
-    Member mem = new Member();
-    mem.addBoat(boat,userId);
+    Date date = Date.valueOf(localdate);
+    
+    Race race = new Race(name, place, date);
+    
+    Staff staff = new Staff();
+    staff.addRace(race);
+    
     closeStage(event);
   }
   
@@ -64,16 +72,5 @@ public class AddBoatDialogController {
     Node  source = (Node) event.getSource();
     Stage stage  = (Stage) source.getScene().getWindow();
     stage.close();
-  }
-  
-  /**
- 	 * Handles the communication between controllers of the Idperson.
- 	 *
- 	 * @param userId  userId the id of the person.
- 	 *
- 	 * @since       1.0
- 	 */
-  public void setUser(int userId){
-      this.userId = userId;
   }
 }
