@@ -76,10 +76,16 @@ public class LoginController implements Initializable {
 		try{
             state = conn.createStatement();
             result = state.executeQuery("select * from person where username='"+Username+"' && password='"+Password+"'");
-            while(result.next()){
+            boolean val = result.next();
+            if(!val){
+                Alert alert = new Alert(AlertType.WARNING,"Error in Username or Password!!",ButtonType.OK);
+                alert.showAndWait();
+             }
+            while(val){
                 Role = result.getString("role");
                 IdPerson = result.getInt("idperson");
-            	}
+                val = result.next();
+                }
             pool.releaseConnection(conn);
        
 			switch(Role) {
@@ -96,9 +102,7 @@ public class LoginController implements Initializable {
 				    Stage stage = new Stage();
 				    stage.setTitle("Member Menu");
 				    stage.initModality(Modality.APPLICATION_MODAL);
-				    stage.setScene(scene);
-				    
-				    
+				    stage.setScene(scene);			    
 				    stage.show();
 				    
 				    break;

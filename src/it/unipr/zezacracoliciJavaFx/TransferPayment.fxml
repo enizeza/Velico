@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unipr.zezacracoliciJavaFx.TransferPaymentDialogController">
+   <children>
+      <Text layoutX="30.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IBAN" wrappingWidth="58.93670654296875" />
+      <Text layoutX="19.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Beneficiario" wrappingWidth="81.59999999999991" />
+      <Button fx:id="pay" layoutX="89.0" layoutY="214.0" mnemonicParsing="false" onAction="#pay" prefHeight="26.0" prefWidth="81.0" text="Continue" />
+      <Text layoutX="30.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" wrappingWidth="58.93670654296875" />
+      <Text layoutX="19.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Causale" wrappingWidth="58.93670654296875" />
+      <Text fx:id="priceToPay" layoutX="137.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="73.79998779296875" />
+      <Text fx:id="causale" layoutX="137.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="99.40000915527344" />
+      <Text fx:id="beneficiario" layoutX="148.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="144.2000274658203" />
+      <Text fx:id="iban" layoutX="130.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="373.80003356933594" />
+      <TextArea layoutX="276.0" layoutY="178.0" prefHeight="71.0" prefWidth="204.0" text="Si prega di utilizzare i seguenti dati&#10;per procedere al pagamento del&#10;bonifico" />
+   </children>
+</AnchorPane>

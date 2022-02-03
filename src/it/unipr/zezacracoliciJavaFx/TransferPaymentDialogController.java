@@ -39,8 +39,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * The class {@code CardPaymentDialogController} supports
- * the payment with card.
+ * The class {@code TransferPaymentDialogController} supports
+ * the payment with transfer.
  * 
  * 
  * @author   Eni Zeza 308966
@@ -51,17 +51,15 @@ import javafx.stage.Stage;
  * @since    1.0
  */
 
-public class CardPaymentDialogController implements Initializable {
-	@FXML
-    private TextField ownerCard;
-	@FXML
-    private TextField numberCard;
-	@FXML
-    private TextField cvv;
-	@FXML
-    private TextField expirationDate;
+public class TransferPaymentDialogController implements Initializable {
 	@FXML
     private Text priceToPay;
+	@FXML
+    private Text iban;
+	@FXML
+    private Text beneficiario;
+	@FXML
+    private Text causale;
 	
 	private String type;
 	private int idboat;
@@ -92,7 +90,7 @@ public class CardPaymentDialogController implements Initializable {
      * @since       1.0
      */
 	public void pay(ActionEvent event) throws SQLException, IOException{	
-		String credit = "Credit card";
+		String credit = "Transfer";
 		MysqlConnect pool = new MysqlConnect();
 		try (
 				Connection conn = pool.getConnection();
@@ -146,6 +144,8 @@ public class CardPaymentDialogController implements Initializable {
      */
 	public void initData(final Integer p, final String type) {
 		priceToPay.setText(p.toString());
+		iban.setText("IT43W36000032000CA005867472");
+		beneficiario.setText("Velico Spa");
 		this.price = p;
 		this.type = type;
 	}
@@ -159,6 +159,7 @@ public class CardPaymentDialogController implements Initializable {
      * @since  1.0
      */
 	public void initDataEnroll(final Integer idBoat, final Integer idRace) {
+		causale.setText("Enroll boat to a race");
 		this.idboat = idBoat;
 		this.idrace = idRace;
 	}
@@ -171,6 +172,7 @@ public class CardPaymentDialogController implements Initializable {
      * @since  1.0
      */
 	public void initDataStorage(final Integer idBoat) {
+		causale.setText("Storage boat");
 		this.idboat = idBoat;
 	}
 	
@@ -182,6 +184,7 @@ public class CardPaymentDialogController implements Initializable {
      * @since  1.0
      */
 	public void initDataOrganization(final Integer idUser) {
+		causale.setText("Organization fee");
 		this.iduser = idUser;
 	}
 }

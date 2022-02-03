@@ -252,7 +252,20 @@ public class MemberMenuController implements Initializable {
 	    PayTypeDialogController dialogController = fxmlLoader.<PayTypeDialogController> getController();
 			
         state = conn.createStatement();
-        result = state.executeQuery("select * from boat where owner="+userId+"");
+        result = state.executeQuery("SELECT * FROM boat WHERE boat.owner = "+userId+" && boat.idboat NOT IN (SELECT boat_storage_sum.boat FROM boat_storage_sum)");
+        while(result.next()){
+            Name = result.getString("name");
+            Length = result.getInt("length");
+            IdBoat = result.getInt("idboat");
+            Boat boat = new Boat(IdBoat, Name, Length);
+            appMainObservableList.add(boat);
+        	}
+        
+        result = state.executeQuery("SELECT *\r\n"
+        		+ "FROM boat as b join boat_storage_sum as bs on b.idboat = bs.boat\r\n"
+        		+ "WHERE DATE_SUB(CURRENT_DATE(), INTERVAL 1 YEAR) > bs.date && b.owner = "+userId+" && b.idboat != all (SELECT b1.idboat FROM boat as b1 join boat_storage_sum as bs1 on b1.idboat = bs1.boat\r\n"
+        		+ "                                                                                        WHERE DATE_SUB(CURRENT_DATE(), INTERVAL 1 YEAR) < bs1.date && b1.owner = "+userId+")\r\n"
+        		+ "group by(b.idboat)");
         while(result.next()){
             Name = result.getString("name");
             Length = result.getInt("length");
@@ -271,29 +284,6 @@ public class MemberMenuController implements Initializable {
 	    stage.initModality(Modality.APPLICATION_MODAL);
 	    stage.setScene(scene);
 	    stage.showAndWait();
-		
-		/*if (tvData.getSelectionModel().getSelectedItem() != null) {
-	        Product selectedProduct = tvData.getSelectionModel().getSelectedItem();
-	        int id = selectedProduct.getId();
-	        
-	        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("BuyProductDialog.fxml"));
-	    	
-		    Parent parent = fxmlLoader.load();
-		    
-		    BuyProductDialogController dialogController =
-		            fxmlLoader.<BuyProductDialogController> getController();
-		        dialogController.initData(id);
-		
-		    Scene scene = new Scene(parent, 300, 200);
-		    Stage stage = new Stage();
-		    stage.initModality(Modality.APPLICATION_MODAL);
-		    stage.setScene(scene);
-		    stage.showAndWait();
-		}
-		else {
-			Alert alert = new Alert(AlertType.WARNING,"Nothing selected",ButtonType.OK);
-			alert.showAndWait();
-		}*/
 	}
 	
 	/**
@@ -330,7 +320,6 @@ public class MemberMenuController implements Initializable {
             }  	
         	}
         pool.releaseConnection(conn);
-  
 	}
 
 	/** {@inheritDoc} **/

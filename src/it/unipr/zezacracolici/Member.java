@@ -8,11 +8,13 @@ package it.unipr.zezacracolici;
  */
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 
 import it.unipr.zezacracoliciJavaFx.MysqlConnect;
 import javafx.scene.control.Alert;
@@ -120,22 +122,80 @@ public class Member extends Person {
 	/**
      * Pay organization sum
      * 
+     * @param iduser the user id 
+     * @param idPayment the payment id
+     * @param price the storage price 
+     * 
+     * @throws SQLException query errors
+     * 
      * @since 1.0
      */
-	public void payOrganizationSum() {
-		
+	public void payOrganizationSum(int iduser, int idPayment, int price) throws SQLException {
+		PreparedStatement pstate;		
+		MysqlConnect pool = new MysqlConnect();
+		Connection conn = pool.getConnection();
+		try{
+            pstate = conn.prepareStatement("insert into organization_sum(person, payment, date, price)"+
+                                            "values(?,?,?,?)");
+            
+            pstate.setString(1, Integer.toString(iduser));
+            pstate.setString(2, Integer.toString(idPayment));
+            pstate.setDate(3, java.sql.Date.valueOf(java.time.LocalDate.now()));
+            pstate.setString(4, Integer.toString(price));
+            
+            pstate.executeUpdate();
+
+            Alert alert = new Alert(AlertType.INFORMATION,"Row inserted correctly",ButtonType.OK);
+			alert.showAndWait();
+            }
+        catch(SQLException e){
+            Alert alert = new Alert(AlertType.WARNING,"Error!!",ButtonType.OK);
+			alert.showAndWait();
+        }	
+		pool.releaseConnection(conn);
 	}
 	
 	/**
      * Pay boat storage sum
      * 
-     * @param boat the boat to storage 
+     * @param idboat the boat id 
+     * @param idPayment the payment id
+     * @param price the storage price 
      * 
+     * @throws SQLException query errors
      * 
      * @since 1.0
      */
-	public void payBoatStorageSum(Boat boat) {
-		
+	public void payBoatStorageSum(int idboat, int idPayment, int price) throws SQLException {
+		PreparedStatement pstate;		
+		MysqlConnect pool = new MysqlConnect();
+		Connection conn = pool.getConnection();
+		/*Date data = Date.valueOf(java.time.LocalDate.now());
+		SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");  
+	    strDate = formatter.format(date);  */
+        java.util.Date utilDate = new java.util.Date();
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+		try{
+            pstate = conn.prepareStatement("insert into boat_storage_sum(boat, payment, date, price)"+
+                                            "values(?,?,?,?)");
+            
+            pstate.setString(1, Integer.toString(idboat));
+            pstate.setString(2, Integer.toString(idPayment));
+            //pstate.setString(3, Date.(java.sql.Date.valueOf(java.time.LocalDate.now())));
+            //pstate.setDate(3, new java.sql.Date(date.getTime()));
+            pstate.setDate(3, sqlDate);
+            pstate.setString(4, Integer.toString(price));
+            
+            pstate.executeUpdate();
+
+            Alert alert = new Alert(AlertType.INFORMATION,"Row inserted correctly",ButtonType.OK);
+			alert.showAndWait();
+            }
+        catch(SQLException e){
+            Alert alert = new Alert(AlertType.WARNING,"Error!!",ButtonType.OK);
+			alert.showAndWait();
+        }	
+		pool.releaseConnection(conn);
 	}
 	
 	/**

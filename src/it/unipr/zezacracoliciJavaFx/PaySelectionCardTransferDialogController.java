@@ -70,10 +70,10 @@ public class PaySelectionCardTransferDialogController implements Initializable {
 				dialogController.initDataEnroll(idboat,idrace);
 				break;
 			case "Organization":
-				dialogController.initDataStorage(idboat);
+				dialogController.initDataOrganization(iduser);
 				break;
 			case "Storage":
-				dialogController.initDataOrganization(iduser);
+				dialogController.initDataStorage(idboat);
 				break;
 		}
 		
@@ -95,20 +95,32 @@ public class PaySelectionCardTransferDialogController implements Initializable {
      * @since       1.0
      */
 	public void payTransfer(ActionEvent event) throws IOException{
-		/*Member member = new Member(name, surname, address, fiscal, user, password);
-		member.registration(member,"Member");
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TransferPayment.fxml"));
 		
-		FXMLLoader fxmlLoaderLogin = new FXMLLoader(getClass().getResource("Login.fxml"));
-		
-	    Parent parentLogin= fxmlLoaderLogin.load();
+	    Parent parent= fxmlLoader.load();
+	    
+	    TransferPaymentDialogController dialogController = fxmlLoader.<TransferPaymentDialogController> getController();
+	    dialogController.initData(price,type);
+	    
+	    switch (type) {
+			case "Enroll":
+				dialogController.initDataEnroll(idboat,idrace);
+				break;
+			case "Organization":
+				dialogController.initDataOrganization(iduser);
+				break;
+			case "Storage":
+				dialogController.initDataStorage(idboat);
+				break;
+		}
 		
 		closeStage(event);
-		Scene sceneLogin = new Scene(parentLogin, 300, 200);
+		Scene sceneLogin = new Scene(parent, 500, 400);
 	    Stage stageLogin = new Stage();
-	    stageLogin.setTitle("Login");
+	    stageLogin.setTitle("Transfer Payment");
 	    stageLogin.initModality(Modality.APPLICATION_MODAL);
 	    stageLogin.setScene(sceneLogin);
-	    stageLogin.show();*/
+	    stageLogin.show();
 	}
 	
 	/**

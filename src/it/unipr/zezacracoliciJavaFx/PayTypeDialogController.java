@@ -21,14 +21,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -70,20 +74,35 @@ public class PayTypeDialogController implements Initializable {
    */
   @FXML
   public void payBoatStorage(final ActionEvent event) throws IOException, SQLException
-  { 
-    /*if (tvData.getSelectionModel().getSelectedItem() != null) {
-        Boat selectedBoat = tvData.getSelectionModel().getSelectedItem();
-        int id = selectedBoat.getId();
+  {  
+	  if (tvData.getSelectionModel().getSelectedItem() != null) {
+	        Boat selectedBoat = tvData.getSelectionModel().getSelectedItem();
+	        
+	        int id = selectedBoat.getId();
+	        int length = selectedBoat.getLength();
+	        int price = length*10; //Prezzo personalizzato in base alla lunghezza
+	        String type = "Storage";
+	        
+	        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PaymentSelectionCardTransfer.fxml"));
+			
+		    Parent parent = fxmlLoader.load();
+		    
+		    PaySelectionCardTransferDialogController dialogController = fxmlLoader.<PaySelectionCardTransferDialogController> getController();
+		    dialogController.initData(price,type);
+		    dialogController.initDataStorage(id);
 		
-        Member member = new Member();
-		
-		member.removeBoat(id);
-	}
-	else {
-		Alert alert = new Alert(AlertType.WARNING,"Nothing selected",ButtonType.OK);
-		alert.showAndWait();
-	}
-    closeStage(event);*/
+		    Scene scene = new Scene(parent, 300, 200);
+		    Stage stage = new Stage();
+		    stage.setTitle("Payment method");
+		    stage.initModality(Modality.APPLICATION_MODAL);
+		    stage.setScene(scene);
+		    stage.showAndWait();
+		}
+		else {
+			Alert alert = new Alert(AlertType.WARNING,"Nothing selected",ButtonType.OK);
+			alert.showAndWait();
+		}
+	    closeStage(event);
   }
   
   /**
@@ -99,29 +118,51 @@ public class PayTypeDialogController implements Initializable {
   @FXML
   public void payOrganization(final ActionEvent event) throws IOException, SQLException
   { 
-	  /*MysqlConnect pool = new MysqlConnect();
+	  MysqlConnect pool = new MysqlConnect();
 	  Connection conn = pool.getConnection();
 		
 	  Statement state = null;
 	  ResultSet result;
-	  String Name = "";
-      int Length = 0;
-	  int IdBoat = 0;
-	     
-      
-      try{
-    	  state = conn.createStatement();
-          result = state.executeQuery("SELECT * FROM organization_sum as os WHERE DATE_SUB(CURRENT_DATE(), INTERVAL 1 YEAR) > os.date && person="+userId+"");
-          pool.releaseConnection(conn);
+	  int price = 300; //Prezzo standard iscrizione
+           
+	  try{
+			state = conn.createStatement();
+			result = state.executeQuery("SELECT * FROM organization_sum as os WHERE DATE_SUB(CURRENT_DATE(), INTERVAL 1 YEAR) < os.date && person="+userId+"");
+			pool.releaseConnection(conn);
+			
+			boolean val = result.next();
+            if(val){
+                Alert alert = new Alert(AlertType.WARNING,"La quota non è scaduta ancora!!",ButtonType.OK);
+                alert.showAndWait();
+             }
+            else {
+            	String type = "Organization";
+    			
+    		    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PaymentSelectionCardTransfer.fxml"));
+    		
+    		    Parent parent = fxmlLoader.load();
+    		 
+    		    PaySelectionCardTransferDialogController dialogController = fxmlLoader.<PaySelectionCardTransferDialogController> getController();
+    		    dialogController.initData(price,type);
+    		    dialogController.initDataOrganization(userId);
+    		
+    		    Scene scene = new Scene(parent, 300, 200);
+    		    Stage stage = new Stage();
+    		    stage.setTitle("Payment method");
+    		    stage.initModality(Modality.APPLICATION_MODAL);
+    		    stage.setScene(scene);
+    		    stage.showAndWait();
+            }
           }
       catch(SQLException e){
-          Alert alert = new Alert(AlertType.WARNING,"Query error!!!",ButtonType.OK);
-		  alert.showAndWait();
+            Alert alert = new Alert(AlertType.WARNING,"Query error!!!",ButtonType.OK);
+		    alert.showAndWait();
           }
       catch(NullPointerException e){
-          Alert alert = new Alert(AlertType.INFORMATION,"La quota non è scaduta ancora!!",ButtonType.OK);
-		  alert.showAndWait();
-          }*/
+            Alert alert = new Alert(AlertType.INFORMATION,"La quota non è scaduta ancora!!",ButtonType.OK);
+		    alert.showAndWait();
+          }
+	  closeStage(event);
   }
   
   /**
@@ -163,11 +204,7 @@ public class PayTypeDialogController implements Initializable {
   
   /** {@inheritDoc} **/
   @Override
-  public void initialize(final URL location, final ResourceBundle resources) {	 
-	/*colId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdString()));
-	colNameBoat.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-	colLengthBoat.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLengthString()));*/
-	  
+  public void initialize(final URL location, final ResourceBundle resources) {	   
 	colId.setCellValueFactory(new PropertyValueFactory<Boat, String>("id"));
 	colNameBoat.setCellValueFactory(new PropertyValueFactory<Boat, String>("name"));
 	colLengthBoat.setCellValueFactory(new PropertyValueFactory<Boat, String>("length"));
