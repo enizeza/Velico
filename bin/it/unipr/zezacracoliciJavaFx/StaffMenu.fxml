@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unipr.zezacracoliciJavaFx.StaffMenuController">
+   <children>
+      <VBox alignment="CENTER" layoutX="91.0" layoutY="85.0" spacing="10.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Staff menu" />
+            <Button fx:id="showMember" mnemonicParsing="false" onAction="#onOpenDialogShowMember" text="Show members" />
+            <Button fx:id="registrationRace" mnemonicParsing="false" onAction="#onOpenDialogRegistrationRace" text="Add race" />
+            <Button fx:id="sendNotification" mnemonicParsing="false" onAction="#onSendNotification" text="Send Notifications" />
+         </children>
+      </VBox>
+      <Button fx:id="logOut" layoutX="30.0" layoutY="14.0" mnemonicParsing="false" onAction="#onOpenLogOut" text="Log out" />
+   </children>
+</AnchorPane>
