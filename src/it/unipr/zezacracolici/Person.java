@@ -33,6 +33,7 @@ public class Person {
 	private String surname;
 	private String fiscalcode;
 	private String address;
+	private int id;
 	
 	
 	/**
@@ -60,7 +61,6 @@ public class Person {
      * @param address the person address
      * @param role the person role
      * 
-     * 
      * @since 1.0
      */
 	public Person(String name, String surname, String address, String fiscalcode, String username, String password) {
@@ -70,6 +70,33 @@ public class Person {
 		this.surname = surname;
 		this.fiscalcode = fiscalcode;
 		this.address = address;
+	}
+	
+	/** 
+     * This constructor generates a Person object.
+     *
+     * @param idperson the person id 
+     * @param name the person name
+     * @param surname the person surname
+     * 
+     * @since 1.0
+     */
+	public Person(int idperson, String name, String surname) {
+		this.id = idperson;
+		this.name = name;
+		this.surname = surname;
+	}
+	
+	
+	/** 
+     * This method gets the Person's id.
+     *
+     * @return int the Person's id.
+     * 
+     * @since 1.0
+     */
+	public int getId() {
+		return this.id;
 	}
 	
 	/** 

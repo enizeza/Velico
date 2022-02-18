@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -27,8 +28,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -306,7 +310,7 @@ public class MemberMenuController implements Initializable {
 	    int IdNotification = 0;
 			
         state = conn.createStatement();
-        result = state.executeQuery("select * from notification where person="+userId+"");
+        result = state.executeQuery("select * from notification where person="+userId+" && message_read = 0");
         while(result.next()){
         	Sum_type = result.getString("sum_type");
         	Read = result.getInt("message_read");
@@ -317,6 +321,38 @@ public class MemberMenuController implements Initializable {
             }  	
         	}
         pool.releaseConnection(conn);
+	}
+	
+	/**
+   	 * Handles event of reading a notification.
+   	 *
+   	 * @param e  the event.
+   	 * @throws IOException input output
+	 * @throws SQLException query error
+   	 *
+   	 * @since       1.0
+   	 */
+	@FXML
+	public void onReadNotification(final ActionEvent e) throws IOException, SQLException{
+        if (tvData.getSelectionModel().getSelectedItem() != null) {
+            Notification selectedNotification = tvData.getSelectionModel().getSelectedItem();
+            
+            int idNotification = selectedNotification.getIdnotification();
+            
+            PreparedStatement pstate;		
+    		MysqlConnect pool = new MysqlConnect();
+    		Connection conn = pool.getConnection();
+            pstate = conn.prepareStatement("update notification set message_read = 1 where idnotification="+idNotification+"");    
+            
+            pstate.executeUpdate();
+    		pool.releaseConnection(conn);
+            
+            tvData.getItems().clear();
+    	}
+    	else {
+    		Alert alert = new Alert(AlertType.WARNING,"Nothing selected",ButtonType.OK);
+    		alert.showAndWait();
+    	}
 	}
 
 	/** {@inheritDoc} **/

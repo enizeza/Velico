@@ -17,6 +17,8 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 
 import it.unipr.zezacracolici.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -42,6 +44,8 @@ import javafx.stage.Stage;
  * @since       1.0
  */
 public class StaffMenuController implements Initializable {	
+	private ObservableList<Person> appMainObservableList = FXCollections.observableArrayList();
+	
 	private int userId;
 	
 	
@@ -73,24 +77,46 @@ public class StaffMenuController implements Initializable {
      *
      * @param e  the event.
 	 * @throws IOException input output
+	 * @throws SQLException query error
      *
      * @since       1.0
      */
 	@FXML
-	public void onOpenDialogShowMember(final ActionEvent e) throws IOException {
-		/*FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddBoatDialog.fxml"));
+	public void onOpenDialogShowMember(final ActionEvent e) throws IOException, SQLException {
+	    appMainObservableList.clear();
+		MysqlConnect pool = new MysqlConnect();
+		Connection conn = pool.getConnection();
+		
+		Statement state = null;
+	    ResultSet result;
+		
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ShowMemberDialog.fxml"));
 		
 	    Parent parent = fxmlLoader.load();
 	    
-	    AddBoatDialogController control = fxmlLoader.<AddBoatDialogController>getController();
-	    control.setUser(userId);
-	
-	    Scene scene = new Scene(parent, 300, 200);
+	    ShowMemberDialogController dialogController = fxmlLoader.<ShowMemberDialogController> getController();
+			
+        state = conn.createStatement();
+        result = state.executeQuery("select * from person where role = 'Member'");
+        while(result.next()){
+            String Name = result.getString("name");
+            String Surname = result.getString("surname");
+            int IdPerson = result.getInt("idperson");
+            Person person = new Person(IdPerson, Name, Surname);
+            appMainObservableList.add(person);
+        	}
+        
+        pool.releaseConnection(conn);
+        
+        
+		dialogController.setAppMainObservableList(appMainObservableList);
+	    
+	    Scene scene = new Scene(parent, 500, 500);
 	    Stage stage = new Stage();
-	    stage.setTitle("Add Boat");
+	    stage.setTitle("Show Member");
 	    stage.initModality(Modality.APPLICATION_MODAL);
 	    stage.setScene(scene);
-	    stage.showAndWait();*/
+	    stage.showAndWait();
 	}
 	
 	/**
@@ -108,7 +134,7 @@ public class StaffMenuController implements Initializable {
 		
 	    Parent parent = fxmlLoader.load();
 	
-	    Scene scene = new Scene(parent, 300, 200);
+	    Scene scene = new Scene(parent, 300, 300);
 	    Stage stage = new Stage();
 	    stage.setTitle("Add Race");
 	    stage.initModality(Modality.APPLICATION_MODAL);

@@ -26,6 +26,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
+            <Button fx:id="readNotification" mnemonicParsing="false" onAction="#onReadNotification" text="Read" />
          </children>
       </VBox>
       <Button fx:id="logOut" layoutX="30.0" layoutY="14.0" mnemonicParsing="false" onAction="#onOpenLogOut" text="Log out" />
