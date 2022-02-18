@@ -12,6 +12,7 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Staff menu" />
             <Button fx:id="showMember" mnemonicParsing="false" onAction="#onOpenDialogShowMember" text="Show members" />
             <Button fx:id="registrationRace" mnemonicParsing="false" onAction="#onOpenDialogRegistrationRace" text="Add race" />
+            <Button fx:id="removeRace" mnemonicParsing="false" onAction="#onOpenDialogRemoveRace" text="Remove race" />
             <Button fx:id="sendNotification" mnemonicParsing="false" onAction="#onSendNotification" text="Send Notifications" />
          </children>
       </VBox>

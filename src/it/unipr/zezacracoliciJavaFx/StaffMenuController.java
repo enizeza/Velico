@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -45,6 +46,8 @@ import javafx.stage.Stage;
  */
 public class StaffMenuController implements Initializable {	
 	private ObservableList<Person> appMainObservableList = FXCollections.observableArrayList();
+	
+	private ObservableList<Race> appMainObservableListRace = FXCollections.observableArrayList();
 	
 	private int userId;
 	
@@ -141,6 +144,56 @@ public class StaffMenuController implements Initializable {
 	    stage.setScene(scene);
 	    stage.showAndWait();
 	}
+	
+	
+	/**
+	 * Handles the open dialog event for removing a race.
+     *
+     * @param e  the event.
+	 * @throws IOException input output
+	 * @throws SQLException query error
+     *
+     * @since       1.0
+     */
+	@FXML
+	public void onOpenDialogRemoveRace(final ActionEvent e) throws IOException, SQLException {	    
+	    appMainObservableList.clear();
+		MysqlConnect pool = new MysqlConnect();
+		Connection conn = pool.getConnection();
+		
+		Statement state = null;
+	    ResultSet result;
+		
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("RemoveRaceDialog.fxml"));
+		
+	    Parent parent = fxmlLoader.load();
+	    
+	    RemoveRaceDialogController dialogController = fxmlLoader.<RemoveRaceDialogController> getController();
+			
+        state = conn.createStatement();
+        result = state.executeQuery("select * from race");
+        while(result.next()){
+            String Place = result.getString("place");
+            String Name = result.getString("name");
+            int IdRace = result.getInt("idrace");
+            Date date = result.getDate("date");
+            Race race = new Race(IdRace, Name, Place, date);
+            appMainObservableListRace.add(race);
+        	}
+        
+        pool.releaseConnection(conn);
+        
+        
+		dialogController.setAppMainObservableList(appMainObservableListRace);
+	    
+	    Scene scene = new Scene(parent, 500, 500);
+	    Stage stage = new Stage();
+	    stage.setTitle("Remove race");
+	    stage.initModality(Modality.APPLICATION_MODAL);
+	    stage.setScene(scene);
+	    stage.showAndWait();
+	}
+	
 	
 	/**
    	 * Handles event of sending notifications.

@@ -83,9 +83,9 @@ public class ShowMemberDialogController implements Initializable {
   }
   
   /**
-   * Show members.
+   * Show Boats.
    *
-   * @param event the event that Shows the members.
+   * @param event the event that Shows the member boats.
    * 
    * @throws IOException input output
    * @throws SQLException query error

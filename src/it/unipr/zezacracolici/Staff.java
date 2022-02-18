@@ -195,5 +195,35 @@ public class Staff extends Person{
         }	
 		pool.releaseConnection(conn);
 	}
+	
+	/**
+     * Remove a race
+     * 
+     * @param idboat id of the race to remove
+     * 
+	 * @throws SQLException query errors
+     * 
+     * @since 1.0
+     */
+	public void removeRace(int idrace) throws SQLException {
+		PreparedStatement pstate;		
+		MysqlConnect pool = new MysqlConnect();
+		Connection conn = pool.getConnection();
+		
+		try{
+            pstate = conn.prepareStatement("delete from race where idrace = ?");
+            pstate.setString(1, Integer.toString(idrace));
+            
+            pstate.executeUpdate();
+
+            Alert alert = new Alert(AlertType.INFORMATION,"Row deleted correctly",ButtonType.OK);
+			alert.showAndWait();
+            }
+        catch(SQLException e){
+        	Alert alert = new Alert(AlertType.WARNING,"Error!!",ButtonType.OK);
+			alert.showAndWait();
+            }
+		pool.releaseConnection(conn);
+	}
 
 }

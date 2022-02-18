@@ -100,6 +100,8 @@ public class Member extends Person {
 		try{
             pstate = conn.prepareStatement("delete from boat where idboat = ?");
             pstate.setString(1, Integer.toString(idboat));
+            
+            pstate.executeUpdate();
 
             Alert alert = new Alert(AlertType.INFORMATION,"Row deleted correctly",ButtonType.OK);
 			alert.showAndWait();
