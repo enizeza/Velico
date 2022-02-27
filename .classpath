@@ -16,6 +16,16 @@
 	<classpathentry kind="lib" path="C:/Program Files/Java/javafx-sdk-17.0.1/lib/javafx-swt.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.27.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="lib" path="C:/Users/enize/Downloads/mockito-core-4.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/enize/eclipse-workspace/Finale/JarMockitoComplete/byte-buddy-1.12.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/enize/eclipse-workspace/Finale/JarMockitoComplete/byte-buddy-agent-1.12.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/enize/eclipse-workspace/Finale/JarMockitoComplete/generics-resolver-3.0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/enize/eclipse-workspace/Finale/JarMockitoComplete/mockito-core-4.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/enize/eclipse-workspace/Finale/JarMockitoComplete/mockito-scala_2.13-1.17.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/enize/eclipse-workspace/Finale/JarMockitoComplete/mockito-scala-scalatest_2.13-1.17.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/enize/eclipse-workspace/Finale/JarMockitoComplete/objenesis-3.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/enize/eclipse-workspace/Finale/JarMockitoComplete/scalactic_2.13-3.2.11.jar"/>
+	<classpathentry kind="lib" path="C:/Users/enize/eclipse-workspace/Finale/JarMockitoComplete/scala-library-2.13.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/enize/eclipse-workspace/Finale/JarMockitoComplete/scala-parallel-collections_2.13-1.0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/enize/eclipse-workspace/Finale/JarMockitoComplete/scala-reflect-2.13.8.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -16,9 +16,48 @@ import org.junit.Test;
 
 
 import it.unipr.zezacracolici.Member;
-import it.unipr.zezacracolici.Person;   
+import it.unipr.zezacracolici.Person;
+import it.unipr.zezacracoliciJavaFx.MysqlConnect;
 
-public class PersonTest {	
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+@RunWith(MockitoJUnitRunner.class)
+public class PersonTest {
+	
+	@Mock
+    private MysqlConnect ds;
+
+    @Mock
+    private Connection c;
+
+    @Mock
+    private PreparedStatement stmt;
+
+    @Mock
+    private ResultSet rs;
+    
+    @Mock
+    private Person p;
+
+    @Before
+    public void setUp() throws Exception {
+        assertNotNull(ds);
+    }	
+	
     public static final String NAME = "Eni";
     public static final String SURNAME = "Zeza";
     public static final String ADDRESS = "Via nonsisa";
@@ -45,7 +84,6 @@ public class PersonTest {
     @Test
 	public void testRegistration() throws Exception{
     	Member m = new Member("Eni","Zeza","Vai nonsisa","dgdgfdgfd","eni","pass");
-		Person per = new Person();
-		per.registration(m,"Member");
+		p.registration(m,"Member");
 	}
 }
