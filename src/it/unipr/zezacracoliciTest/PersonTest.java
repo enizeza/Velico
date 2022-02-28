@@ -1,73 +1,53 @@
-/*package it.unipr.zezacracoliciTest;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;*/
-
-
 package it.unipr.zezacracoliciTest;
 
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.Test;
 
+
+import org.junit.Test;
 
 import it.unipr.zezacracolici.Member;
 import it.unipr.zezacracolici.Person;
-import it.unipr.zezacracoliciJavaFx.MysqlConnect;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import javax.sql.DataSource;
 
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+
+/**
+ * PersonTest is in charge of testing the methods of the class Person.
+ * 
+ * @author   Eni Zeza 308966
+ * @author   Leonardo Cracolici 306798
+ * 
+ * @version  1.0
+ * @since    1.0
+ */
+
 @RunWith(MockitoJUnitRunner.class)
 public class PersonTest {
 	
-	@Mock
-    private MysqlConnect ds;
-
-    @Mock
-    private Connection c;
-
-    @Mock
-    private PreparedStatement stmt;
-
-    @Mock
-    private ResultSet rs;
-    
+	private static final String NAME = "Eni";
+	private static final String SURNAME = "Zeza";
+	private static final String ADDRESS = "Via nonsisa";
+	private static final String FISCALCODE = "dgdgfdgfd";
+	private static final String USERNAME = "eni";
+	private static final String PASSWORD = "pass";
+	
     @Mock
     private Person p;
 
     @Before
     public void setUp() throws Exception {
-        assertNotNull(ds);
     }	
-	
-    public static final String NAME = "Eni";
-    public static final String SURNAME = "Zeza";
-    public static final String ADDRESS = "Via nonsisa";
-    public static final String FISCALCODE = "dgdgfdgfd";
-    public static final String USERNAME = "eni";
-    public static final String PASSWORD = "pass";
 
+    
     /**
      * Performs the test for the person class constructor.
-     *
+     * 
+     * @since 1.0
      */
     @Test
     public void standardConstructorTest()
@@ -81,6 +61,12 @@ public class PersonTest {
         () -> assertTrue(person.getPassword().equals(PASSWORD)) );
     }
     
+    
+    /**
+     * Performs the test for the person registration method.
+     * 
+     * @since 1.0
+     */
     @Test
 	public void testRegistration() throws Exception{
     	Member m = new Member("Eni","Zeza","Vai nonsisa","dgdgfdgfd","eni","pass");

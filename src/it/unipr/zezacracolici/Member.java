@@ -38,12 +38,25 @@ public class Member extends Person {
 	/** 
      * This constructor generates a Member object.
      *
-     * @param username the person username 
-     * @param password the person password
-     * @param name the person name
-     * @param surname the person surname
-     * @param fiscalcode the person fiscalcode
-     * @param address the person address
+     * @param username the member username 
+     * @param password the member password
+     * @param id the member id
+     * 
+     * @since 1.0
+     */
+	public Member(int id, String username, String password) {
+		super(id, username, password);
+	}
+	
+	/** 
+     * This constructor generates a Member object.
+     *
+     * @param username the member username 
+     * @param password the member password
+     * @param name the member name
+     * @param surname the member surname
+     * @param fiscalcode the member fiscalcode
+     * @param address the member address
      * 
      * @since 1.0
      */

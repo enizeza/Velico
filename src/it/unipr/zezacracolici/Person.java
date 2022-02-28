@@ -189,12 +189,12 @@ public class Person {
             pstate.setString(7, role);
             pstate.executeUpdate();
 
-            //Alert alert = new Alert(AlertType.INFORMATION,"Row inserted correctly",ButtonType.OK);
-			//alert.showAndWait();
+            Alert alert = new Alert(AlertType.INFORMATION,"Row inserted correctly",ButtonType.OK);
+			alert.showAndWait();
             }
         catch(SQLException e){
-            //Alert alert = new Alert(AlertType.WARNING,"Error!!",ButtonType.OK);
-			//alert.showAndWait();
+            Alert alert = new Alert(AlertType.WARNING,"Error!!",ButtonType.OK);
+			alert.showAndWait();
         }	
 		pool.releaseConnection(conn);
 	}
