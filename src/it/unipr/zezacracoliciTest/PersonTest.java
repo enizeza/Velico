@@ -1,18 +1,25 @@
 package it.unipr.zezacracoliciTest;
 
-import static org.junit.Assert.*;
+
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.sql.Connection;
+import java.sql.Statement;
 
 import org.junit.Test;
 
 import it.unipr.zezacracolici.Member;
 import it.unipr.zezacracolici.Person;
+import it.unipr.zezacracoliciJavaFx.MysqlConnect;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 
@@ -38,10 +45,20 @@ public class PersonTest {
 	
     @Mock
     private Person p;
+    
+    @InjectMocks private MysqlConnect dbConnection;
+    @Mock private Connection mockConnection;
+    @Mock private Statement mockStatement;
+   
+    @SuppressWarnings("deprecation")
+	@Before
+    public void setUp() {
+      MockitoAnnotations.initMocks(this);
+    }
 
-    @Before
+   /* @Before
     public void setUp() throws Exception {
-    }	
+    }	*/
 
     
     /**
@@ -62,14 +79,24 @@ public class PersonTest {
     }
     
     
+    
     /**
      * Performs the test for the person registration method.
      * 
      * @since 1.0
-     */
+     
     @Test
 	public void testRegistration() throws Exception{
     	Member m = new Member("Eni","Zeza","Vai nonsisa","dgdgfdgfd","eni","pass");
 		p.registration(m,"Member");
-	}
+	}*/
+    
+    @Test
+    public void testRegistration() throws Exception {
+      Mockito.when(mockConnection.createStatement()).thenReturn(mockStatement);
+      Mockito.when(mockConnection.createStatement().executeUpdate(Mockito.any())).thenReturn(1);
+      int value = dbConnection.executeQuery("insert into person(name, surname, address, fiscalcode, username, password, role) values(NAME,SURNAME,ADDRESS,FISCALCODE,USERNAME,PASSWORD,'Member')");
+      Assert.assertEquals(value, 1);
+      Mockito.verify(mockConnection.createStatement(), Mockito.times(1));
+    }
 }

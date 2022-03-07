@@ -103,6 +103,12 @@ public class MysqlConnect {
 		return availableConnections.size();
 	}
 	
+	public int executeQuery(String query) throws ClassNotFoundException, SQLException {
+		MysqlConnect pool = new MysqlConnect();
+		Connection conn = pool.getConnection();
+	    return conn.createStatement().executeUpdate(query);
+	}
+	
 	/*public static void main(String[] args) throws SQLException {	
 		
 		Connection con1 = pool.getConnection();

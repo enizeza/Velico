@@ -54,13 +54,22 @@ public class StaffTest {
 	}
 	
 	
-	
+	/**
+     * Performs the test for the staff SendNotificationStorage method.
+     * 
+     * @since 1.0
+     */
 	@Test
 	public void testSendNotificationStorage() throws SQLException {
 		Member m = new Member(ID, USERNAME, PASSWORD);
 		s.sendNotificationStorage(m.getId());
 	}
 	
+	/**
+     * Performs the test for the staff AddRace method.
+     * 
+     * @since 1.0
+     */
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testAddRace() throws SQLException {
@@ -69,6 +78,11 @@ public class StaffTest {
 		s.addRace(race);
 	}
 	
+	/**
+     * Performs the test for the staff RemoveRace method.
+     * 
+     * @since 1.0
+     */
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testRemoveRace() throws SQLException {
