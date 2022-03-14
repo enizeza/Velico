@@ -33,23 +33,13 @@ public class MysqlConnect {
 	private String USERID = "root";
 	private String PASSWORD = "123456";
 	
-	//MysqlConnect pool = new MysqlConnect("jdbc:mysql://localhost:3308/velico","root", "123456");
-
-	/* Initialize all 5 Connections and put them in the Pool 
-	public MysqlConnect(String Url, String UserId, String password) throws SQLException {
-		this.URL = Url;
-		this.USERID = UserId;
-		this.PASSWORD = password;
-
-		for (int count = 0; count <MAX_CONNECTIONS; count++) {
-			availableConnections.add(this.createConnection());
-		}
-	}*/
-	
 	/**
-	 * Used to create the connection available 
+	 * Used to create the connection available
 	 * 
-	 * @since 1.0
+	 * @throws SQLException query errors
+	 * 
+	 * @version     1.0
+     * @since       1.0
 	 */
 	public MysqlConnect() throws SQLException {
 		for (int count = 0; count <MAX_CONNECTIONS; count++) {
@@ -65,7 +55,10 @@ public class MysqlConnect {
 	/**
 	 * Used by us to get connection from Pool 
 	 * 
-	 * @since 1.0
+	 * @return con the connection for the database
+	 * 
+	 * @version     1.0
+     * @since       1.0
 	 */
 	public Connection getConnection() {
 		if (availableConnections.size() == 0) {
@@ -79,11 +72,15 @@ public class MysqlConnect {
 		}
 	}
 
-
 	/**
 	 * Return connection back to the Pool 
 	 * 
-	 * @since 1.0
+	 * @param con the connection for the database to release
+	 * 
+	 * @return boolean that shows if the release was done
+	 * 
+	 * @version     1.0
+     * @since       1.0
 	 */
 	public boolean releaseConnection(Connection con) {
 		if (null != con) {
@@ -95,35 +92,35 @@ public class MysqlConnect {
 	}
 
 	/** 
-	 * Utility function to check the number of Available Connections 
+	 * Utility function to check the number of Available Connections
 	 * 
-	 * @since 1.0
+	 * @return int the number of connections available
+	 * 
+	 * @version     1.0
+     * @since       1.0
 	 */
 	public int getFreeConnectionCount() {
 		return availableConnections.size();
 	}
 	
+	/** 
+	 * Utility function to execute a query 
+	 * 
+	 * @param query the query to execute
+	 * 
+	 * @throws ClassNotFoundException error class
+	 * @throws SQLException query error
+	 * 
+	 * @return int the result of the execution of the query
+	 * 
+	 * @version     1.0
+     * @since       1.0
+	 */
 	public int executeQuery(String query) throws ClassNotFoundException, SQLException {
 		MysqlConnect pool = new MysqlConnect();
 		Connection conn = pool.getConnection();
 	    return conn.createStatement().executeUpdate(query);
 	}
-	
-	/*public static void main(String[] args) throws SQLException {	
-		
-		Connection con1 = pool.getConnection();
-		Connection con2 = pool.getConnection();
-		System.out.println(pool.getFreeConnectionCount());
-		Connection con3 = pool.getConnection();
-		Connection con4 = pool.getConnection();
-		Connection con5 = pool.getConnection();
-		Connection con6 = pool.getConnection();
-		System.out.println(pool.getFreeConnectionCount());
-		pool.releaseConnection(con1);
-		pool.releaseConnection(con2);
-		pool.releaseConnection(con4);
-		System.out.println(pool.getFreeConnectionCount());
-	}*/
 }
 
 

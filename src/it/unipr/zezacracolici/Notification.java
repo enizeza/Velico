@@ -1,7 +1,7 @@
 package it.unipr.zezacracolici;
 
 /**
- * Notification is in charge of the notification.
+ * The class {@code Notification} is in charge of the notification.
  * Each notification has a type, id, bool read  and idperson.
  * 
  * @author   Eni Zeza 308966

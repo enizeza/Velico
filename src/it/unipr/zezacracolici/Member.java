@@ -17,7 +17,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 
 /**
- * Member is a subclass of person. It has some privileges more than Person.
+ * The class {@code Member} is a subclass of person. It has some privileges more than Person.
  * 
  * @author   Eni Zeza 308966
  * @author   Leonardo Cracolici 306798

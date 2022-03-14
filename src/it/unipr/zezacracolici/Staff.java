@@ -13,7 +13,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 
 /**
- * Staff is a subclass of person. It has some privileges more than Person.
+ * The class {@code Race} is a subclass of person. It has some privileges more than Person.
  * 
  * @author   Eni Zeza 308966
  * @author   Leonardo Cracolici 306798
@@ -37,7 +37,6 @@ public class Staff extends Person{
      * @param iduser id of the member
      * 
 	 * @throws SQLException query errors
-     * @throws IOException input output
      * 
      * @since 1.0
      */
@@ -89,7 +88,6 @@ public class Staff extends Person{
      * @param iduser id of the member
      * 
 	 * @throws SQLException query errors
-     * @throws IOException input output
      * 
      * @since 1.0
      */
@@ -196,7 +194,7 @@ public class Staff extends Person{
 	/**
      * Remove a race
      * 
-     * @param idboat id of the race to remove
+     * @param idrace id of the race to remove
      * 
 	 * @throws SQLException query errors
      * 

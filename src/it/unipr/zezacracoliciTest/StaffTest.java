@@ -1,25 +1,25 @@
-/**
- * 
- */
 package it.unipr.zezacracoliciTest;
 
 
-import java.sql.Date;
-import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.Statement;
 
 import org.junit.Test;
 
-import it.unipr.zezacracolici.Member;
-import it.unipr.zezacracolici.Race;
 import it.unipr.zezacracolici.Staff;
+import it.unipr.zezacracoliciJavaFx.MysqlConnect;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 /**
- * StaffTest is in charge of testing the methods of the class Staff.
+ * The class {@code StaffTest} is in charge of testing the methods of the class Staff.
  * 
  * @author   Eni Zeza 308966
  * @author   Leonardo Cracolici 306798
@@ -31,64 +31,62 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class StaffTest {
 	
-	private static final int ID = 1;
-	private static final String USERNAME = "eni";
-	private static final String PASSWORD = "pass";
+	private static final String DATE = "2023-03-14";
+	private static final String NAME = "La rouleta";
+	private static final String PLACE = "Barcelona";
 	
-    @Mock
+	@Mock
     private Staff s;
-	
+    
+	@InjectMocks private MysqlConnect dbConnection;
+    @Mock private Connection mockConnection;
+    @Mock private Statement mockStatement;
+   
+    
+    /**
+     * SetUp for the test.
+     * 
+     * @version  1.0
+     * @since    1.0
+     */
+    @SuppressWarnings("deprecation")
 	@Before
-	public void setUp() throws Exception {
-	}
-	
-	/**
-     * Performs the test for the staff SendNotificationOrganization method.
-     * 
-     * @since 1.0
-     */
-	@Test
-	public void testSendNotificationOrganization() throws SQLException {
-		Member m = new Member(ID, USERNAME, PASSWORD);
-		s.sendNotificationOrganization(m.getId());
-	}
-	
-	
-	/**
-     * Performs the test for the staff SendNotificationStorage method.
-     * 
-     * @since 1.0
-     */
-	@Test
-	public void testSendNotificationStorage() throws SQLException {
-		Member m = new Member(ID, USERNAME, PASSWORD);
-		s.sendNotificationStorage(m.getId());
-	}
-	
+    public void setUp() {
+      MockitoAnnotations.initMocks(this);
+    }
+		
 	/**
      * Performs the test for the staff AddRace method.
      * 
-     * @since 1.0
+     * @throws Exception error
+     * 
+     * @version  1.0
+     * @since    1.0
      */
-	@SuppressWarnings("deprecation")
 	@Test
-	public void testAddRace() throws SQLException {
-		Date data = new Date(2022, 03, 23);
-		Race race = new Race(23,"La Ruleta","Monaco",data);
-		s.addRace(race);
+	public void testAddRace() throws Exception {
+		Mockito.when(mockConnection.createStatement()).thenReturn(mockStatement);
+		Mockito.when(mockConnection.createStatement().executeUpdate(Mockito.any())).thenReturn(1);
+		int value = dbConnection.executeQuery("insert into race(name, place, date) values('"+NAME+"','"+PLACE+"','"+DATE+"')");
+		Assert.assertEquals(value, 1);
+		Mockito.verify(mockConnection.createStatement(), Mockito.times(1));
+		//dbConnection.executeQuery("delete from race where name = '"+NAME+"' and place = '"+PLACE+"' and date = '"+DATE+"'");
 	}
 	
 	/**
      * Performs the test for the staff RemoveRace method.
      * 
-     * @since 1.0
+     * @throws Exception error
+     * 
+     * @version  1.0
+     * @since    1.0
      */
-	@SuppressWarnings("deprecation")
 	@Test
-	public void testRemoveRace() throws SQLException {
-		Date data = new Date(2022, 03, 23);
-		Race race = new Race(23,"La Ruleta","Monaco",data);
-		s.addRace(race);
-		s.removeRace(race.getIdrace());
+	public void testRemoveRace() throws Exception {
+		Mockito.when(mockConnection.createStatement()).thenReturn(mockStatement);
+		Mockito.when(mockConnection.createStatement().executeUpdate(Mockito.any())).thenReturn(1);
+		int value = dbConnection.executeQuery("delete from race where name = '"+NAME+"' and place = '"+PLACE+"' and date = '"+DATE+"'");
+		Assert.assertEquals(value, 1);
+		Mockito.verify(mockConnection.createStatement(), Mockito.times(1));		
 	}
 }

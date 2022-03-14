@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import it.unipr.zezacracolici.Notification;
 
 /**
- * NotificationTest is in charge of testing the methods of the class Notification.
+ * The class {@code NotificationTest} is in charge of testing the methods of the class Notification.
  * 
  * @author   Eni Zeza 308966
  * @author   Leonardo Cracolici 306798
@@ -23,6 +23,13 @@ public class NotificationTest {
 	private static final String TYPE = "Storage";
 	private static final int READ = 0;
 
+	
+	/**
+     * Performs the test for the notification class constructor.
+     * 
+     * @version  1.0
+     * @since    1.0
+     */
 	@Test
 	final void testNotificationIntStringInt() {
 		Notification notification = new Notification(IDPERSON, TYPE, READ);
@@ -30,7 +37,14 @@ public class NotificationTest {
 		  assertAll(() -> assertTrue(notification.getType().equals(TYPE)),
 		    () -> assertTrue(notification.getRead() == READ) );
 	}
-
+	
+	
+	/**
+     * Performs the test for the notification class constructor.
+     * 
+     * @version  1.0
+     * @since    1.0
+     */
 	@Test
 	final void testNotificationIntIntStringInt() {
 		Notification notification = new Notification(ID, IDPERSON, TYPE, READ);

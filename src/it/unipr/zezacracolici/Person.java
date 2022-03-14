@@ -16,7 +16,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 
 /**
- * Person is in charge of saving a person object with its properties.
+ * The class {@code Person} is in charge of saving a person object with its properties.
  * Each person has an username, password, name, surname, fiscalcode and address.
  * 
  * @author   Eni Zeza 308966
@@ -59,7 +59,6 @@ public class Person {
      * @param surname the person surname
      * @param fiscalcode the person fiscalcode
      * @param address the person address
-     * @param role the person role
      * 
      * @since 1.0
      */
@@ -168,7 +167,8 @@ public class Person {
 	/**
      * Registration into the database of a person
      * 
-     * @param role the role of the person 
+     * @param role the role of the person
+     * @param member the member object  
 	 * @throws SQLException query error
      * 
      * @since 1.0

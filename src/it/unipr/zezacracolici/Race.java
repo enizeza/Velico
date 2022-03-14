@@ -3,7 +3,7 @@ package it.unipr.zezacracolici;
 import java.util.Date;
 
 /**
- * Race is in charge of the race.
+ * The class {@code Race} is in charge of the race.
  * Each Race has an Id, name, place, date.
  * 
  * @author   Eni Zeza 308966

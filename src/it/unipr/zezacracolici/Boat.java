@@ -1,7 +1,7 @@
 package it.unipr.zezacracolici;
 
 /**
- * Boat is in charge of saving a boat object with its properties.
+ * The class {@code Boat} is in charge of saving a boat object with its properties.
  * Each boat has an name, id and length.
  * 
  * @author   Eni Zeza 308966
@@ -42,6 +42,7 @@ public class Boat {
      *
      * @param name the boat name 
      * @param length the boat length
+     * @param id the boat id
      * 
      * @since 1.0
      */
